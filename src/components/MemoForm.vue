@@ -56,7 +56,6 @@ export default {
   margin-bottom: 1.5rem;
   padding-bottom: 2.5rem;
   border-bottom: 1px solid #eeeeee;
-
   form fieldset {
     div {
       position: relative;
@@ -64,14 +63,12 @@ export default {
       margin-bottom: 1.25rem;
       box-shadow: 0 4px 10px -4px rgba(0, 0, 0, 0.2);
       background-color: #ffffff;
-
       .memo-form__title-form {
         width: 100%;
         margin-bottom: 0.75rem;
         font-size: 18px;
         line-height: 26px;
       }
-
       .memo-form__content-form {
         width: 100%;
         height: 66px;
@@ -80,7 +77,6 @@ export default {
         vertical-align: top;
       }
     }
-
     button[type="reset"] {
       position: absolute;
       right: 20px;
@@ -88,7 +84,6 @@ export default {
       font-size: 16px;
       background: none;
     }
-
     button[type="submit"] {
       float: right;
       width: 96px;
@@ -99,7 +94,6 @@ export default {
       font-size: 16px;
     }
   }
-
   input:focus {
     outline: none;
   }
