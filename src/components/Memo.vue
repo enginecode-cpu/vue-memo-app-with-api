@@ -28,13 +28,14 @@ export default {
   },
   props: {
     memo: {
-      type: Object
+      type: Object,
+      required: true
     }
   },
   methods: {
     deleteMemo() {
-      const id = this.memo.id;
-      this.$emit("deleteMemo", id);
+      const memoId = this.memo.id;
+      this.$emit("deleteMemo", memoId);
     },
     updateMemo(e) {
       const id = this.memo.id;
@@ -84,7 +85,7 @@ export default {
       font-weight: 400;
       word-break: break-all;
     }
-    
+
     p {
       margin: 0;
       font-size: 14px;
