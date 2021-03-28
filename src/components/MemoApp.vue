@@ -8,6 +8,9 @@
         :memo="memo"
         @deleteMemo="deleteMemo"
         @updateMemo="updateMemo"
+        :editingId="editingId"
+        @setEditingId="SET_EDITING_ID"
+        @resetEditingId="RESET_EDITING_ID"
       />
     </ul>
   </div>
@@ -16,7 +19,8 @@
 <script>
 import MemoForm from "./MemoForm";
 import Memo from "./Memo";
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
+import { SET_EDITING_ID, RESET_EDITING_ID } from "../store/mutations-types";
 
 export default {
   name: "MemoApp",
@@ -25,13 +29,15 @@ export default {
     Memo
   },
   computed: {
-    ...mapState(["memos"])
+    ...mapState(["memos"]),
+    ...mapState(["editingId"])
   },
   created() {
     this.fetchMemos();
   },
   methods: {
-    ...mapActions(["fetchMemos", "addMemo", "deleteMemo", "updateMemo"])
+    ...mapActions(["fetchMemos", "addMemo", "deleteMemo", "updateMemo"]),
+    ...mapMutations([SET_EDITING_ID, RESET_EDITING_ID])
   }
 };
 </script>
