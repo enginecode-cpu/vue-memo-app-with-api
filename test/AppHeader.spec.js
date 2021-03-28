@@ -1,7 +1,6 @@
 import { createLocalVue, shallowMount } from "@vue/test-utils";
 import Vuex from "vuex";
 import AppHeader from "@/components/AppHeader";
-import { experiments } from "webpack";
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
