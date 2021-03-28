@@ -21,21 +21,33 @@
 <script>
 export default {
   name: "Memo",
-  data: () => {
-    return {
-      isEditing: false
-    };
-  },
   props: {
     memo: {
       type: Object,
       required: true
+    },
+    editingId: {
+      type: Number
+    }
+  },
+  computed: {
+    isEditing() {
+      return this.memo.id === this.editingId;
     }
   },
   methods: {
     deleteMemo() {
       const memoId = this.memo.id;
       this.$emit("deleteMemo", memoId);
+    },
+    handleDblClick() {
+      this.$emit("setEditingId", this.memo.id);
+      this.$nextTick(() => {
+        this.$refs.content.focus();
+      });
+    },
+    handleBlur() {
+      this.$emit("resetEditingId");
     },
     updateMemo(e) {
       const id = this.memo.id;
@@ -44,16 +56,7 @@ export default {
         return false;
       }
       this.$emit("updateMemo", { id, content });
-      this.isEditing = false;
-    },
-    handleDblClick() {
-      this.isEditing = true;
-      this.$nextTick(() => {
-        this.$refs.content.focus();
-      });
-    },
-    handleBlur() {
-      this.isEditing = false;
+      this.$refs.content.blur();
     }
   }
 };
@@ -68,7 +71,6 @@ export default {
   box-shadow: 0 4px 10px -4px rgba(0, 0, 0, 0.2);
   background-color: #ffffff;
   list-style: none;
-
   button {
     background: none;
     position: absolute;
@@ -77,7 +79,6 @@ export default {
     font-size: 20px;
     color: #e5e5e5;
     border: 0;
-
     strong {
       display: block;
       margin-bottom: 0.75rem;
@@ -85,7 +86,6 @@ export default {
       font-weight: 400;
       word-break: break-all;
     }
-
     p {
       margin: 0;
       font-size: 14px;
