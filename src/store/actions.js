@@ -10,38 +10,28 @@ const memoAPICore = axios.create({
   baseURL: "http://localhost:3000/api/todo"
 });
 
-export function fetchMemos({ commit }) {
-  memoAPICore.get("/").then(res => {
-    commit(FETCH_MEMOS, res.data);
-  });
+export async function fetchMemos({ commit }) {
+  const response = await memoAPICore.get("/");
+  commit(FETCH_MEMOS, response.data);
 }
 
-export function addMemo({ commit }, payload) {
-  memoAPICore
-    .post("/", payload)
-    .then(res => {
-      const memoData = JSON.parse(res.config.data);
-      commit(ADD_MEMO, memoData);
-    })
-    .then(() => {
-      memoAPICore.get("/").then(res => {
-        commit(FETCH_MEMOS, res.data);
-      });
-    });
+export async function addMemo({ commit, dispatch }, payload) {
+  const response = await memoAPICore.post("/", payload);
+  const memoData = JSON.parse(response.config.data);
+  commit(ADD_MEMO, memoData);
+  await dispatch("fetchMemos");
 }
 
-export function deleteMemo({ commit }, payload) {
+export async function deleteMemo({ commit }, payload) {
   const id = payload;
-  memoAPICore.delete(`/${id}`).then(() => {
-    commit(DELETE_MEMO, id);
-  });
+  await memoAPICore.delete(`/${id}`);
+  await commit(DELETE_MEMO, id);
 }
 
-export function updateMemo({ commit }, payload) {
+export async function updateMemo({ commit }, payload) {
   const { id, content } = payload;
-  memoAPICore.patch(`/${id}`, { content }).then(() => {
-    commit(EDIT_MEMO, payload);
-  });
+  await memoAPICore.patch(`/${id}`, { content });
+  await commit(EDIT_MEMO, payload);
 }
 
 export default {
