@@ -11,7 +11,7 @@ module.exports = {
   ],
   transform: {
     "^.+\\.vue$": "vue-jest",
-    "^.+\\.jsx?$": "babel-jest"
+    "^.+\\.js?$": "babel-jest"
   },
   snapshotSerializers: ["jest-serializer-vue"]
 };
